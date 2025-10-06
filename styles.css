@@ -1,0 +1,226 @@
+.mod-workplacetraining-edit-item-btn,
+.mod-workplacetraining-edit-section-btn {
+    color: #008196 !important; /* stylelint-disable-line declaration-no-important */
+}
+
+.mod-workplacetraining-delete-item-btn,
+.mod-workplacetraining-delete-section-btn {
+    color: #ca3120 !important; /* stylelint-disable-line declaration-no-important */
+}
+
+.mod-workplacetraining-add-item-btn,
+.mod-workplacetraining-add-section-btn {
+    color: #000 !important; /* stylelint-disable-line declaration-no-important */
+}
+
+/* Sections */
+.mod-workplacetraining-section {
+    margin-bottom: 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    background-color: #fff;
+    overflow-wrap: break-word;
+}
+
+.mod-workplacetraining-section-header {
+    padding: 0.75rem 1.25rem;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    cursor: pointer;
+    overflow-wrap: break-word;
+}
+
+.mod-workplacetraining-section-content {
+    padding: 1.25rem;
+    transition: all 0.3s ease-in-out;
+    overflow-wrap: break-word;
+}
+
+.mod-workplacetraining-section-toggle {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    flex: 1 1 auto; /* Allow it to grow and shrink, but take available space */
+    min-width: 0; /* Important for proper text wrapping in flexbox */
+    margin: 0;
+}
+
+.mod-workplacetraining-section-title {
+    margin: 0;
+}
+
+.mod-workplacetraining-section-actions {
+    flex: 0 0 auto; /* Don't grow or shrink, stay at natural size */
+    white-space: nowrap; /* Keep all buttons on one line */
+    margin-left: auto; /* Push to the right */
+}
+
+.mod-workplacetraining-section-toggle-icon {
+    transition: transform 0.3s;
+    width: 20px;
+    text-align: center;
+}
+
+/* Default state - caret points down */
+.mod-workplacetraining-section-toggle .fa-caret-down {
+    display: inline-block;
+    transform: rotate(0deg); /* Explicitly set starting position */
+    transition: transform 0.3s ease-in-out; /* Smooth transition */
+}
+
+/* Collapsed state - caret rotates to point right */
+.mod-workplacetraining-section-toggle.collapsed .fa-caret-down {
+    transform: rotate(-90deg);
+}
+
+.collapse {
+    transition: height 0.3s ease-in-out;
+}
+
+.collapsing {
+    transition: height 0.3s ease-in-out;
+}
+
+/* Section items */
+.mod-workplacetraining-section-item {
+    padding: 0.5rem;
+    border: 1px solid #eee;
+    border-radius: 0.25rem;
+    background-color: #fafafa;
+}
+
+.mod-workplacetraining-item-header {
+    padding: 0.25rem 0.5rem;
+}
+
+.mod-workplacetraining-item-title {
+    font-weight: 500;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    flex: 1 1 auto; /* Allow it to grow and shrink, but take available space */
+    min-width: 0; /* Important for proper text wrapping in flexbox */
+    margin: 0;
+}
+
+.mod-workplacetraining-item-actions {
+    flex: 0 0 auto; /* Don't grow or shrink, stay at natural size */
+    white-space: nowrap; /* Keep all buttons on one line */
+    margin-left: auto; /* Push to the right */
+}
+
+.mod-workplacetraining-item-description {
+    margin: 0.5rem;
+    overflow-wrap: break-word;
+}
+
+.mod-workplacetraining-item-content {
+    margin: 0.5rem;
+    overflow-wrap: break-word;
+}
+
+.mod-workplacetraining-item-footer {
+    margin: .5rem;
+    color: #6c757d;
+    font-style: italic;
+}
+
+.mod-workplacetraining-save-feedback {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    margin-top: 0.5rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.813rem;
+    font-weight: 500;
+    border-radius: 0.25rem;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.mod-workplacetraining-save-feedback--success {
+    color: #0f5132;
+    background-color: #d1e7dd;
+    border: 1px solid #badbcc;
+}
+
+.mod-workplacetraining-save-feedback--error {
+    color: #842029;
+    background-color: #f8d7da;
+    border: 1px solid #f5c2c7;
+}
+
+.mod-workplacetraining-selectmenu-option {
+    display: none;
+}
+
+.mod-workplacetraining-selectmenu-option-label {
+    display: inline-block;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 1rem;
+    background-color: #fff;
+    border: 2px solid #dee2e6;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #495057;
+    margin-right: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    word-break: break-word;
+}
+
+.mod-workplacetraining-selectmenu-option-label:hover {
+    border-color: #0f6cbf;
+    background-color: #f8f9fa;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mod-workplacetraining-selectmenu-option:checked + .mod-workplacetraining-selectmenu-option-label {
+    background-color: #0f6cbf;
+    border-color: #0f6cbf;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(15, 108, 191, 0.3);
+    transform: scale(1.02);
+}
+
+.mod-workplacetraining-selectmenu-option:focus + .mod-workplacetraining-selectmenu-option-label {
+    outline: 3px solid #0f6cbf;
+    outline-offset: 2px;
+}
+
+.mod-workplacetraining-selectmenu-option:disabled + .mod-workplacetraining-selectmenu-option-label {
+    cursor: not-allowed;
+    background-color: #e9ecef;
+}
+
+.mod-workplacetraining-selectmenu-option:disabled:checked + .mod-workplacetraining-selectmenu-option-label {
+    cursor: not-allowed;
+    background-color: #0f6cbf;
+    border-color: #0f6cbf;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(15, 108, 191, 0.3);
+    transform: scale(1.02);
+}
+
+.mod-workplacetraining-datepicker-form {
+    max-width: fit-content;
+}
+
+#mod-workplacetraining-evaluate-students-table .col-status {
+    width: 35%;
+}
+
+#mod-workplacetraining-evaluate-students-table .col-finalised {
+    width: 1%;
+    white-space: nowrap;
+}
+
+#mod-workplacetraining-evaluate-students-table .col-action {
+    width: 1%;
+    white-space: nowrap;
+}
