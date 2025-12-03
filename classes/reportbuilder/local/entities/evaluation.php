@@ -40,9 +40,9 @@ use stdClass;
  */
 class evaluation extends base {
     /** @var int cmid Workplace training course module id */
-    private $cmid = null;
+    private $cmid;
     /** @var int wtid Workplace training id */
-    private $wtid = null;
+    private $wtid;
 
     /**
      * Construct the entity
@@ -132,13 +132,8 @@ class evaluation extends base {
                     AND {$coursemodulealias}.instance = {$this->wtid}"
         );
 
-        $course = $this->get_course_helper();
-        $coursejoin = '';
-        if (!empty($course) && $course->id !== SITEID) {
-            $coursejoin = " AND {$enrolalias}.courseid = {$course->id}";
-        }
-
-        $this->add_join("INNER JOIN {enrol} {$enrolalias} ON {$enrolalias}.id = {$userenrolmentsalias}.enrolid" . $coursejoin);
+        $this->add_join("INNER JOIN {enrol} {$enrolalias} ON {$enrolalias}.id = {$userenrolmentsalias}.enrolid
+                            AND {$enrolalias}.courseid = {$coursemodulealias}.course");
 
         $this->add_join("JOIN {context} {$contextalias} ON {$contextalias}.instanceid = {$enrolalias}.courseid
                         AND {$contextalias}.contextlevel = " . CONTEXT_COURSE . "
@@ -151,24 +146,23 @@ class evaluation extends base {
         $sectionitemalias = database::generate_alias();
         $sectionalias = database::generate_alias();
         $wtevaluationsalias = database::generate_alias();
-        $user2alias = database::generate_alias();
         $completiondatalias = database::generate_alias();
         $this->add_join("
-                    JOIN {user} {$user2alias} ON {$user2alias}.id = {$userenrolmentsalias}.userid
                         LEFT JOIN (
                     SELECT {$responsealias}.userid, COUNT(DISTINCT {$responsealias}.itemid) as completed_count
                     FROM {workplacetraining_responses} $responsealias
                     JOIN {workplacetraining_section_items} {$sectionitemalias} ON {$sectionitemalias}.id = {$responsealias}.itemid
                     JOIN {workplacetraining_sections} {$sectionalias} ON {$sectionalias}.id = {$sectionitemalias}.sectionid
+                        AND {$sectionalias}.wtid = {$this->wtid}
                     JOIN {workplacetraining_evaluations} {$wtevaluationsalias} ON
                         {$wtevaluationsalias}.userid = {$responsealias}.userid
+                        AND {$responsealias}.version = {$wtevaluationsalias}.version
                         AND {$wtevaluationsalias}.active = 1
                         AND {$wtevaluationsalias}.wtid = {$sectionalias}.wtid
-                    WHERE {$sectionalias}.wtid = {$this->wtid}
-                    AND {$sectionitemalias}.isrequired = 1
+                    WHERE {$sectionitemalias}.isrequired = 1
                     AND {$responsealias}.completed = 1
                     GROUP BY {$responsealias}.userid
-                ) $completiondatalias ON $completiondatalias.userid = {$user2alias}.id
+                ) $completiondatalias ON $completiondatalias.userid = {$evaluationsalias}.userid
         ");
 
         $columns[] = (new column(
@@ -403,7 +397,8 @@ class evaluation extends base {
             return get_string(
                 'finalisedby',
                 'workplacetraining',
-                ['name' => fullname($finalisedby), 'datetime' => userdate($row->timefinalised, get_string('strftimedatemonthabbr', 'langconfig'))]
+                ['name' => fullname($finalisedby),
+                    'datetime' => userdate($row->timefinalised, get_string('strftimedatemonthabbr', 'langconfig'))]
             );
         } else {
             return get_string('unfinalised', 'workplacetraining');
