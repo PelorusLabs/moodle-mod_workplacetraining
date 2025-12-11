@@ -46,7 +46,8 @@ class custom_completion extends activity_custom_completion {
                 $totalrequired = (int) $DB->get_field_sql($sql, ['wtid' => $this->cm->instance]);
 
                 if ($totalrequired === 0) {
-                    return COMPLETION_COMPLETE;
+                    // No required entries, assume the activity isn't set up yet, return incomplete.
+                    return COMPLETION_INCOMPLETE;
                 }
 
                 $sql = "SELECT COUNT(DISTINCT r.itemid) as completed
