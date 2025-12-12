@@ -557,7 +557,7 @@ final class backup_restore_test extends \advanced_testcase {
         $itemid = $this->create_section_item($sectionid, 'File Upload Item', 'Upload your files here', 'fileupload', 0, false);
 
         // Create dynamic filearea name based on item id.
-        $filearea = 'type_fileupload_' . $itemid;
+        $filearea = 'type_fileupload_' . $itemid . '_1';
 
         // Create test files for both students.
         $file1 = $this->create_test_file(
@@ -569,6 +569,8 @@ final class backup_restore_test extends \advanced_testcase {
             'Student 1 file content'
         );
 
+        $this->create_response($itemid, $student1->id, '', true);
+
         $file2 = $this->create_test_file(
             $context->id,
             'mod_trainingevaluation',
@@ -577,6 +579,8 @@ final class backup_restore_test extends \advanced_testcase {
             'student2_file.pdf',
             'Student 2 file content'
         );
+
+        $this->create_response($itemid, $student2->id, '', true);
 
         // Verify files were created.
         $fs = get_file_storage();
@@ -631,7 +635,7 @@ final class backup_restore_test extends \advanced_testcase {
         $item = reset($items);
 
         // The new filearea should be based on the NEW item id.
-        $newfilearea = 'type_fileupload_' . $item->id;
+        $newfilearea = 'type_fileupload_' . $item->id . '_1';
 
         // Check that files were restored to the correct filearea.
         $restoredfiles = $fs->get_area_files($newcontext->id, 'mod_trainingevaluation', $newfilearea, false, '', false);
@@ -686,9 +690,7 @@ final class backup_restore_test extends \advanced_testcase {
         $item2id = $this->create_section_item($sectionid, 'File Upload Item 2', 'Upload files 2', 'fileupload', 1, false);
 
         // Create files for each item.
-        $filearea1 = 'type_fileupload_' . $item1id;
-        $filearea2 = 'type_fileupload_' . $item2id;
-
+        $filearea1 = 'type_fileupload_' . $item1id . '_1';
         $this->create_test_file(
             $context->id,
             'mod_trainingevaluation',
@@ -697,7 +699,9 @@ final class backup_restore_test extends \advanced_testcase {
             'item1_file.txt',
             'Item 1 content'
         );
+        $this->create_response($item1id, $student->id, '', true);
 
+        $filearea2 = 'type_fileupload_' . $item2id . '_1';
         $this->create_test_file(
             $context->id,
             'mod_trainingevaluation',
@@ -706,6 +710,7 @@ final class backup_restore_test extends \advanced_testcase {
             'item2_file.txt',
             'Item 2 content'
         );
+        $this->create_response($item2id, $student->id, '', true);
 
         // Perform backup WITH users.
         $bc = new backup_controller(
@@ -761,7 +766,7 @@ final class backup_restore_test extends \advanced_testcase {
         $fs = get_file_storage();
 
         // Check files for item 1.
-        $newfilearea1 = 'type_fileupload_' . $newitem1->id;
+        $newfilearea1 = 'type_fileupload_' . $newitem1->id . '_1';
         $files1 = $fs->get_area_files($newcontext->id, 'mod_trainingevaluation', $newfilearea1, false, '', false);
         $this->assertCount(1, $files1);
         $file1 = reset($files1);
@@ -769,7 +774,7 @@ final class backup_restore_test extends \advanced_testcase {
         $this->assertEquals('Item 1 content', $file1->get_content());
 
         // Check files for item 2.
-        $newfilearea2 = 'type_fileupload_' . $newitem2->id;
+        $newfilearea2 = 'type_fileupload_' . $newitem2->id . '_1';
         $files2 = $fs->get_area_files($newcontext->id, 'mod_trainingevaluation', $newfilearea2, false, '', false);
         $this->assertCount(1, $files2);
         $file2 = reset($files2);

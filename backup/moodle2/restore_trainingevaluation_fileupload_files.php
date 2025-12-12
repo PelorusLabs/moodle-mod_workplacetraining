@@ -54,6 +54,7 @@ class restore_trainingevaluation_fileupload_files extends restore_execution_step
             $sql = "SELECT r.id, r.itemid, r.userid, r.version FROM {trainingevaluation_responses} r WHERE r.itemid = :itemid";
             $responses = $DB->get_records_sql($sql, ['itemid' => $newitem->newid]);
 
+            // Response is per user, so we are now restoring each user individually.
             foreach ($responses as $response) {
                 if ($olditemid) {
                     $oldfilearea = 'type_fileupload_' . $olditemid . '_' . $response->version;
@@ -72,7 +73,7 @@ class restore_trainingevaluation_fileupload_files extends restore_execution_step
                     // If the item IDs are different, we need to rename the filearea.
                     if ($olditemid != $newitem->newid) {
                         $fs = get_file_storage();
-                        $files = $fs->get_area_files($newcontextid, 'mod_trainingevaluation', $oldfilearea, false, '', false);
+                        $files = $fs->get_area_files($newcontextid, 'mod_trainingevaluation', $oldfilearea, $response->userid, '', false);
 
                         foreach ($files as $file) {
                             $filerecord = [
