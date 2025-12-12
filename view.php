@@ -43,6 +43,12 @@ if ($evaluation === false) {
     $evaluation = evaluation::get_record_create_if_not_exists($trainingevaluation->id, $USER->id);
 }
 
+$event = \mod_trainingevaluation\event\course_module_viewed::create(['context' => $context, 'objectid' => $id]);
+$event->add_record_snapshot('course_modules', $cm);
+$event->add_record_snapshot('course', $course);
+$event->add_record_snapshot('trainingevaluation', $trainingevaluation);
+$event->trigger();
+
 $PAGE->set_url('/mod/trainingevaluation/view.php', ['id' => $cm->id]);
 $PAGE->set_title(format_string($trainingevaluation->name));
 $PAGE->set_heading(format_string($course->fullname));
