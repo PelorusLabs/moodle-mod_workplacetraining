@@ -31,7 +31,7 @@ class backup_trainingevaluation_activity_structure_step extends backup_activity_
         $userinfo = $this->get_setting_value('userinfo');
 
         $trainingevaluation = new backup_nested_element('trainingevaluation', ['id'], [
-            'name', 'intro', 'introformat', 'showlastmodified', 'completiononrequired',
+            'name', 'intro', 'introformat', 'showlastmodified', 'completiononrequired', 'timemodified',
         ]);
 
         $sections = new backup_nested_element('sections');

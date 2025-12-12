@@ -68,8 +68,8 @@ class restore_trainingevaluation_activity_task extends restore_activity_task {
     public static function define_decode_rules() {
         $rules = [];
 
-        $rules[] = new restore_decode_rule('WORKPLACETRAININGVIEWBYID', '/mod/trainingevaluation/view.php?id=$1', 'course_module');
-        $rules[] = new restore_decode_rule('WORKPLACETRAININGINDEX', '/mod/trainingevaluation/index.php?id=$1', 'course');
+        $rules[] = new restore_decode_rule('TRAININGEVALUATIONVIEWBYID', '/mod/trainingevaluation/view.php?id=$1', 'course_module');
+        $rules[] = new restore_decode_rule('TRAININGEVALUATIONINDEX', '/mod/trainingevaluation/index.php?id=$1', 'course');
 
         return $rules;
     }

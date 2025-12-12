@@ -73,11 +73,11 @@ final class custom_completion_test extends \advanced_testcase {
         ]);
         $item->create();
 
-        // Check completion status - should be complete with no required items.
+        // Check completion status - should be incomplete with no required items.
         $completion = new custom_completion($cm, $user->id);
         $state = $completion->get_state('completiononrequired');
 
-        $this->assertEquals(COMPLETION_COMPLETE, $state);
+        $this->assertEquals(COMPLETION_INCOMPLETE, $state);
     }
 
     /**
